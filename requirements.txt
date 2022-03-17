@@ -3,4 +3,4 @@ nltk
 pandas
 numpy
 matplotlib
-operator
+jupyterlab

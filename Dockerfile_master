@@ -1,28 +1,13 @@
 # spark_hadoop_base will install Spark and Hadoop
 FROM nicolasmartinbekier/spark_hadoop_base:v0.1 
 
-# Download configuration files and copy them
-RUN wget https://raw.githubusercontent.com/nmartinbekier/de1_g19_project/main/core-site.xml
-RUN wget https://raw.githubusercontent.com/nmartinbekier/de1_g19_project/main/hdfs-site.xml
-RUN wget https://raw.githubusercontent.com/nmartinbekier/de1_g19_project/main/start-configuration.sh
-RUN wget https://raw.githubusercontent.com/nmartinbekier/de1_g19_project/main/requirements.txt
-
-COPY core-site.xml HADOOP_HOME/etc/hadoop/
-COPY hdfs-site.xml HADOOP_HOME/etc/hadoop/
-COPY start-configuration.sh /
-
-# Install python and jupyter notebook
-RUN apt-get install -y build-essential python3.7 python3-pip python3-dev
-RUN pip3 -q install pip --upgrade
-RUN pip3 install -r requirements.txt
-RUN pip3 install jupyterlab
-RUN mkdir -p /home/ubuntu/notebooks
-WORKDIR /home/ubuntu/notebooks
-EXPOSE 8888
+# Copy configuration files
+COPY core-site.xml /usr/local/hadoop/etc/hadoop/
+COPY hdfs-site.xml /usr/local/hadoop/etc/hadoop/
+RUN groupadd -r ubuntu && useradd -m -r -g ubuntu ubuntu 
+COPY master-configuration.sh /home/ubuntu/
+RUN chown ubuntu /home/ubuntu/master-configuration.sh && chmod +x /home/ubuntu/master-configuration.sh
+USER ubuntu
 
 # Run starting configuration
-ENV SPARK_MODE="master" 
-RUN chmod +x /start-configuration.sh
-RUN /start-configuration.sh
-
-CMD ["jupyter", "lab","--ip=0.0.0.0","--no-browser","--allow-root"]
+CMD ["/bin/bash", "/home/ubuntu/master-configuration.sh"]
