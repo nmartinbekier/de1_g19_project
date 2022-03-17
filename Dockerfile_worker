@@ -1,0 +1,19 @@
+# spark_hadoop_base will install Spark and Hadoop
+FROM nicolasmartinbekier/spark_hadoop_base:v0.1 
+
+# Download configuration files and copy them
+RUN wget http://.../core-site.xml
+RUN wget http://.../hdfs-site.xml
+RUN wget http://.../start-configuration.sh
+
+COPY core-site.xml HADOOP_HOME/etc/hadoop/
+COPY hdfs-site.xml HADOOP_HOME/etc/hadoop/
+COPY start-configuration.sh /
+
+# Run starting configuration
+ENV SPARK_MODE="master" 
+RUN chmod +x /start-configuration.sh
+
+CMD ["/bin/bash", "/start-configuration.sh"] 
+
+

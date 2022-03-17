@@ -1,0 +1,6 @@
+pyspark
+nltk
+pandas
+numpy
+matplotlib
+operator

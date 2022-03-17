@@ -1,0 +1,39 @@
+version: "3"
+services:
+  master:
+    # Will install spark, hadoop, and run jupyterlab on master instance
+    image: nicolasmartinbekier/spark_hadoop_master:v0.1
+    hostname: sparkmaster
+    ports:
+      - "7077:7077"
+      - "8080:8080"
+      - "8888:8888"
+    environment:
+      - SPARK_MODE=master
+    networks:
+      - spark-net
+    deploy:
+      placement:
+        # set node labels using docker node update --label-add key=value <NODE ID> from swarm manager
+        constraints:
+          - node.labels.role==master
+  worker:
+    # Will install spark and hadoop on nodes/worker instances
+    image: nicolasmartinbekier/spark_hadoop_worker:v0.1
+    depends_on:
+      - master
+    ports:
+      - "8081:8081"
+    environment:
+      - SPARK_MODE=worker
+    deploy:
+      placement:
+        # set node labels using docker node update --label-add key=value <NODE ID> from swarm manager
+        constraints:
+          - node.labels.role==worker
+      replicas: 1
+    networks:
+      - spark-net
+networks:
+  spark-net:
+    driver: overlay
