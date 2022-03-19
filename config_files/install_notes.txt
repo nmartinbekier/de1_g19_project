@@ -1,0 +1,6 @@
+Check master's key is authorized in authorized_keys
+Check /etc/hosts; /etc/hostname
+Run classic_worker_init.sh
+source ~/.bashrc (so the environment variables get loaded)
+Copy respective files in hadoop/etc/hadoop/
+hdfs namenode -format (format hdfs)

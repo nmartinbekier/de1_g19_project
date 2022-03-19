@@ -18,7 +18,15 @@
 
 <configuration>
     <property>
-        <name>fs.defaultFS</name>
-        <value>hdfs://sparkmaster:9000</value>
+        <name>dfs.replication</name>
+        <value>3</value>
+    </property>
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>/usr/local/hadoop/hdfs/data</value>
+    </property>
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>/usr/local/hadoop/hdfs/data</value>
     </property>
 </configuration>
