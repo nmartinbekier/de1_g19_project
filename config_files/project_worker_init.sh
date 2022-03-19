@@ -1,5 +1,12 @@
-#classic_worker_init.sh
+#project_worker_init.sh
 #!/bin/bash
+#
+# Script to be run in worker VMs (NOT IN MASTER)
+#
+# IMPORTANT: After running this script, run `source ~/.bashrc` so the environment
+# variables get actually set
+cd ~/
+
 sudo apt update
 sudo apt-get install -y openjdk-8-jdk
 
@@ -24,19 +31,20 @@ sudo mkdir -p /usr/local/hadoop/hdfs/data
 sudo chown ubuntu:ubuntu -R /usr/local/hadoop/hdfs/data
 chmod 700 /usr/local/hadoop/hdfs/data
 
-tar xvf config_files.tar
-mv core-site.xml hadoop/etc/hadoop/
-mv hdfs-site.xml hadoop/etc/hadoop/
-mv mapred-site.xml hadoop/etc/hadoop/
-mv masters hadoop/etc/hadoop/
-mv workers hadoop/etc/hadoop/
-mv yarn-site.xml hadoop/etc/hadoop/
+mv ~/config_files/hadoop/core-site.xml ~/hadoop/etc/hadoop/
+mv ~/config_files/hadoop/hdfs-site.xml ~/hadoop/etc/hadoop/
+mv ~/config_files/hadoop/mapred-site.xml ~/hadoop/etc/hadoop/
+mv ~/config_files/hadoop/masters ~/hadoop/etc/hadoop/
+mv ~/config_files/hadoop/workers ~/hadoop/etc/hadoop/
+mv ~/config_files/hadoop/yarn-site.xml ~/hadoop/etc/hadoop/
 
-# Remove in case there were previous incomplete configurations
+# Remove Hadoop data files in case there were previous incomplete configurations
 rm -Rf /tmp/hadoop-ubuntu/*
 rm -Rf /usr/local/hadoop/hdfs/data/*
 
 # Install Spark
+# However, if we're using YARN this is not needed, as the Master makes Spark
+# libraries and other resources available to nodes via HDFS
 wget http://apache.mirrors.tds.net/spark/spark-3.2.1/spark-3.2.1-bin-hadoop3.2.tgz
 tar -zxvf spark-3.2.1-bin-hadoop3.2.tgz
 mv spark-3.2.1-bin-hadoop3.2 spark

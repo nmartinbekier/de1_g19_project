@@ -32,10 +32,26 @@
     <property>
         <name>mapreduce.map.env</name>
         <value>HADOOP_MAPRED_HOME=$HADOOP_HOME</value>
-        </property>
+    </property>
     <property>
         <name>mapreduce.reduce.env</name>
         <value>HADOOP_MAPRED_HOME=$HADOOP_HOME</value>
-        </property>
+    </property>
+    <property>
+        <name>mapreduce.map.memory.mb</name>
+        <value>1500</value>
+    </property>
+    <property>
+        <name>mapreduce.reduce.memory.mb</name>
+        <value>3000</value>
+    </property>
+    <property>
+        <name>mapreduce.map.java.opts</name>
+        <value>1200</value>
+    </property>
+    <property>
+        <name>mapreduce.reduce.java.opts</name>
+        <value>2400</value>
+    </property>
 </configuration>
 

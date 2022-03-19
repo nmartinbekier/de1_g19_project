@@ -1,5 +1,12 @@
-#classic_master.sh
+#project_master_init.sh
 #!/bin/bash
+#
+# Script to be run in master VM
+#
+# IMPORTANT: After running this script, run `source ~/.bashrc` so the environment
+# variables get actually set
+cd ~/
+
 sudo apt update
 sudo apt-get install -y openjdk-8-jdk
 
@@ -24,15 +31,14 @@ sudo mkdir -p /usr/local/hadoop/hdfs/data
 sudo chown ubuntu:ubuntu -R /usr/local/hadoop/hdfs/data
 chmod 700 /usr/local/hadoop/hdfs/data
 
-tar xvf config_files.tar
-mv core-site.xml hadoop/etc/hadoop/
-mv hdfs-site.xml hadoop/etc/hadoop/
-mv mapred-site.xml hadoop/etc/hadoop/
-mv masters hadoop/etc/hadoop/
-mv workers hadoop/etc/hadoop/
-mv yarn-site.xml hadoop/etc/hadoop/
+mv ~/config_files/hadoop/core-site.xml ~/hadoop/etc/hadoop/
+mv ~/config_files/hadoop/hdfs-site.xml ~/hadoop/etc/hadoop/
+mv ~/config_files/hadoop/mapred-site.xml ~/hadoop/etc/hadoop/
+mv ~/config_files/hadoop/masters ~/hadoop/etc/hadoop/
+mv ~/config_files/hadoop/workers ~/hadoop/etc/hadoop/
+mv ~/config_files/hadoop/yarn-site.xml ~/hadoop/etc/hadoop/
 
-# Remove in case there were previous incomplete configurations
+# Remove Hadoop data files in case there were previous incomplete configurations
 rm -Rf /tmp/hadoop-ubuntu/*
 rm -Rf /usr/local/hadoop/hdfs/data/*
 
@@ -46,3 +52,5 @@ echo "export HADOOP_CONF_DIR=\$HADOOP_HOME/etc/hadoop" >> ~/.bashrc
 echo "export SPARK_HOME=/home/ubuntu/spark" >> ~/.bashrc 
 echo "export PATH=\$PATH:\$SPARK_HOME/bin" >> ~/.bashrc
 echo "export LD_LIBRARY_PATH=\$HADOOP_HOME/lib/native:\$LD_LIBRARY_PATH" >> ~/.bashrc
+
+mv ~/config_files/spark/spark-defaults.conf ~/spark/conf/
