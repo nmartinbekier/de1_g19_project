@@ -12,4 +12,4 @@ ff02::3 ip6-allhosts
 192.168.2.136 group-19-worker1
 192.168.2.111 group-19-worker2
 192.168.2.169 group-19-worker3
-
+192.168.2.159 group-19-worker4

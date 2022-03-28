@@ -31,7 +31,7 @@
     </property>
     <property>
        <name>yarn.resourcemanager.webapp.address</name>
-       <value>130.238.28.79:8088</value>
+       <value>192.168.2.250:8088</value>
     </property>
     <property>
        <name>yarn.resourcemanager.scheduler.class</name>
@@ -39,15 +39,15 @@
     </property>
     <property>
        <name>yarn.nodemanager.resource.cpu-vcores</name>
-       <value>6</value>
+       <value>2</value>
     </property>
     <property>
        <name>yarn.nodemanager.resource.memory-mb</name>
-       <value>9000</value>
+       <value>4000</value>
     </property>
     <property>
        <name>yarn.scheduler.minimum-allocation-mb</name>
-       <value>1500</value>
+       <value>3000</value>
     </property>
     <property>
        <name>yarn.scheduler.maximum-allocation-mb</name>

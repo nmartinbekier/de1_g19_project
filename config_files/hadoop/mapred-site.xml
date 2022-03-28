@@ -39,7 +39,7 @@
     </property>
     <property>
         <name>mapreduce.map.memory.mb</name>
-        <value>1500</value>
+        <value>3000</value>
     </property>
     <property>
         <name>mapreduce.reduce.memory.mb</name>
@@ -47,11 +47,11 @@
     </property>
     <property>
         <name>mapreduce.map.java.opts</name>
-        <value>1200</value>
+        <value>3000</value>
     </property>
     <property>
         <name>mapreduce.reduce.java.opts</name>
-        <value>2400</value>
+        <value>3000</value>
     </property>
 </configuration>
 
